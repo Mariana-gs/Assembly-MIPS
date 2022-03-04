@@ -1,0 +1,36 @@
+#Exerc�cio Pr�tico 7 - Mariana-gs
+#// programa 12
+
+  	# x - > $t0, k -> $s0
+
+	.text
+	.globl main
+        main:
+	ori $t0, $zero, 0x1001  #t0 = 0x00001001
+	sll $t0, $t0, 16        #t0 = 0x10010000
+	ori $t0, $t0, 0x000c    #t0 = 0x1001000c (valor de x) 
+	
+	lw $t1, 0($t0)          #t1 = 0x10010008 (valor de z)
+	lw $t2, 0($t1)          #t2 = 0x10010000 (valor de y)
+	
+	lw $s0, 0($t2)          #k = 5
+	sll $s0, $s0, 1         #k = 10
+	
+	sw $s0, 0($t2)          #MEM[t2] = 10
+	
+	.data
+	k: .word 5             #0x10010000
+	x: .word 0x1001000c    #0x10010004         
+	y: .word 0x10010000    #0x10010008
+	z: .word 0x10010008    #0x1001000c
+
+
+
+
+
+
+
+
+
+
+

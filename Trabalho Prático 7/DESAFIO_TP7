@@ -1,0 +1,57 @@
+# Exerc�cio Pr�tico 7 - Mariana-gs
+# DESAFIO
+# Todos viram durante a parte aritm�tica que podemos utilizar a ULA e
+# registradores para multiplicar dois n�meros atrav�s de 3 algoritmos. 
+# Voc� dever� escrever um programa que leia dois n�meros da mem�ria
+# (primeira posi��o e segunda posi��o) os multiplique e coloque o resultado 
+# na terceira posi��o a mem�ria.
+# Procure usar a vers�o 3 do algoritmo de multiplica��o, pode ser mais simples!!
+
+	#Mdor -> $s0, Mando -> $s1
+	#produto[dir] -> $s3, produto[esq] -> $s4, controle -> $s5
+
+	.text
+	.globl main
+        main: 
+        
+        lui $t0, 0x1001        #t0 = 0x10010000
+        lw $s0, 0($t0)         #s0 = x (Mdor)
+        lw $s1, 4($t0)         #s1 = y (Mando)
+        addi $t2, $zero, 1     #t2 = 1    
+        
+        addi $s5, $zero, 32    #controle = palavra -> 32
+        add $s3, $zero, $s0    #prod[dir] = Mdor;
+        
+        while: 
+        sll $t1, $s3, 31       #isola �ltimo bit do produto 
+        srl $t1, $t1, 31
+        
+        bne $t1, $t2, fim      #if(produto[0] == 1)
+         
+        add $s4, $s4, $s1      #prod[esq] = prod[esq] + Mando
+        
+        fim:
+        sll $t1, $s4, 31       #t1 = �ltimo bit do produto[esq]
+        srl $t1, $t1, 31
+        
+        srl $s4, $s4, 1        #prod[esq] >> 1
+        srl $s3, $s3, 1        #prod[dir] >> 1
+        
+        sll $t1, $t1, 31
+        or $s3, $s3, $t1       #colocando �ltimo bit do prod[esq] como primeiro bit de prod[dir] 
+        
+        addi $s5, $s5, -1      #controle--
+        bne $s5, $zero, while  #if (controle!=0) goto while
+        
+        sw $s4, 8($t0)         #z = prod[esq]
+        sw $s3, 12($t0)        #w = prod[dir]
+        
+        .data
+	x: .word 0x186A00      #0x10010000
+	y: .word 0x13880       #0x10010004
+        z: .word 0             #0x10010008
+        w: .word 0             #0x1001000c
+        
+        
+        
+        

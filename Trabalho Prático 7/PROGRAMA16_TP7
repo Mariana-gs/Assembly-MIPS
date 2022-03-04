@@ -1,0 +1,74 @@
+# Exerc�cio Pr�tico 7 - Mariana-gs
+# // programa 16
+# Escreva um programa que avalie a express�o: (x*y)/z.
+# Use x = 1600000 (=0x186A00), y = 80000 (=0x13880), e z = 400000 (=0x61A80).
+# Inicializar os registradores com os valores acima.
+
+	#x -> s0, y -> s1, z -> s2
+	
+	.text
+	.globl main
+        main: 
+        
+        lui $t0, 0x1001         #t0 = 0x10010000
+        lw $s0, 0($t0)          #s0 = x
+        lw $s1, 4($t0)          #s1 = y
+        lw $s2, 8($t0)          #s2 = z
+        
+        mult $s0, $s1           #x*y
+        mfhi $t2                #prod[esq]
+        mflo $t1                #prod[dir]
+        
+        add $s3, $zero, $zero  #contador
+        addi $s4, $zero, 2     #s4 = 2
+        addi $t4, $zero, 1     #t4 = 1
+        
+        #Divide o resultado da multiplica��o por dois at� caber em apenas 1 registrador
+        while: 
+        sll $t3, $t2, 31       #isola �ltimo bit do produto[esq]
+        srl $t3, $t3, 31
+        
+        srl $t2, $t2, 1        #prod[esq] >> 1
+        srl $t1, $t1, 1        #prod[dir] >> 1
+        
+        sll $t3, $t3, 31
+        or $t1, $t1, $t3       #colocando �ltimo bit do prod[esq] como primeiro bit de prod[dir] 
+        
+        addi $s3, $s3, 1       #contador (quantas vezes foi dividido por 2)
+        bne $t2, $zero, while
+        
+        fim:
+        srl $t1, $t1, 1        #prod[dir] >> 1
+        addi $s3, $s3, 1       #contador (quantas vezes foi dividido por 2)
+        
+        #Calcular a parte de z que falta para ser dividida
+        loop:
+        #2^contador
+        mult $t4, $s4          
+        mflo $t4
+        addi $s3, $s3, -1      #contador--;
+        bne $s3, $zero, loop
+        
+        div $s2, $t4          #z/2^contador
+        mflo $t4              #parte que falta ser dividida
+        
+        #divis�o
+        div $t1, $t4         
+        mflo $t4
+        
+        sw $t4, 12($t0)
+        
+        .data
+	x: .word 0x186A00     #0x10010000
+	y: .word 0x13880      #0x10010004
+        z: .word 0x61A80      #0x10010008
+        
+        
+        
+
+
+
+
+
+
+

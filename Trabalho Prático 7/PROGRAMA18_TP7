@@ -1,0 +1,73 @@
+# Exercício Prático 7 - Mariana-gs
+# // programa 18
+
+	.text
+	.globl main
+        main: 
+        
+        lui $t0, 0x1001         #t0 = 0x10010000
+        lw $s0, 0($t0)          #s0 = x
+        lw $s1, 4($t0)          #s1 = y
+        addi $s4, $zero, 1      #k = 1
+        
+        for: 
+        beq $s1, $zero, fim     #if (y == 0) goto fim
+        mult $s4, $s0           #k = k*x
+        mflo $s4
+        addi $s1, $s1, -1       #y--;
+        j for
+        
+        fim:
+        mflo $s4
+        sw $s4, 8($t0)          #MEM[0x10010008] = x*y
+        
+        .data
+        x: .word 5     #0x10010000
+        y: .word 4     #0x10010004
+        k: .word 0     #0x10010008
+
+
+
+# int y = 2, x = 3;
+# int k = 1;
+#  for(int i = 0; i < y; i++){
+#    k = k*x;
+#  }
+#  System.out.println("x^y = " + k); 
+#  }
+#}
+
+
+
+# Para a expressão a seguir, escreva um programa que calcule o
+# valor de k: k = x^y Obs: Você poderá utilizar o exercício anterior.
+# O valor de x deve ser lido da primeira posição livre da memória e o
+# valor de y deverá lido da segunda posição livre. O valor de k, após calculado,
+# deverá ainda ser escrito na terceira posição livre da memória. Dê um valor para
+# x e y (dê valores pequenos!!) e use o MARS para verificar a
+# quantidade de instruções conforme o tipo (ULA, Desvios, Mem ou Outras)# Para a expressão a seguir, escreva um programa que calcule o
+# valor de k: k = x^y Obs: Você poderá utilizar o exercício anterior.
+# O valor de x deve ser lido da primeira posição livre da memória e o
+# valor de y deverá lido da segunda posição livre. O valor de k, após calculado,
+# deverá ainda ser escrito na terceira posição livre da memória. Dê um valor para
+# x e y (dê valores pequenos!!) e use o MARS para verificar a
+# quantidade de instruções conforme o tipo (ULA, Desvios, Mem ou Outras)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

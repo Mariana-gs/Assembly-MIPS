@@ -1,0 +1,38 @@
+#Exerc�cio Pr�tico 7 - Mariana-gs
+#// programa 13:
+#Escreva um programa que leia um valor A da mem�ria, identifique se o n�mero �
+#negativo ou n�o e encontre o seu m�dulo. O valor dever� ser reescrito sobre A.
+
+	#a -> $s0
+
+	.text
+	.globl main
+        main:
+        lui $t0, 0x1001         #t0 = 0x10010000
+	lw $s0, 0($t0)          #s0 = a
+	
+	#if(a >= 0) goto fim
+	slt $t1, $s0, $zero     #(if a < 0){t1 = 1}else{t1 = 0}
+	beq $t1, $zero, fim     
+	
+	#if(a < 0) a = a*(-1);
+	addi $t2, $zero, -1     #t2 = -1
+	mult $s0, $t2           #lo = a*(-1)
+	mflo $s0                #a = lo
+	
+	fim:
+	sw $s0, 0($t0)          #a = s0
+	
+	.data
+	a: .word -359           #0x10010000
+	
+
+
+
+
+
+
+
+
+
+

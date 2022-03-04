@@ -1,0 +1,26 @@
+#Exerc�cio Pr�tico 7 - Mariana-gs
+#// programa 14:
+#Escreva um programa que leia um valor A da mem�ria, 
+#identifique se o n�mero � par ou n�o. Um valor dever� ser 
+#escrito na segunda posi��o livre da mem�ria (0 para par e
+#1 para �mpar).
+
+	#a -> $s0
+	
+	.text
+	.globl main
+        main: 
+        
+        lui $t0, 0x1001         #t0 = 0x10010000
+	lw $s0, 0($t0)          #s0 = a
+	
+	andi $t1, $s0, 0x0001   #isola o �ltimo bit de A em t1
+	sw $t1, 4($t0)          #escreve t1 na segunda posi��o de mem�ria           
+	
+	.data
+	a: .word 256            #0x10010000
+	
+	
+	
+	
+	

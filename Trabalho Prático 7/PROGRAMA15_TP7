@@ -1,0 +1,43 @@
+#Exerc�cio Pr�tico 7 - Mariana-gs
+#// programa 15: 
+
+	#i -> $s0, soma -> $s1, contador -> $s2
+	.text
+	.globl main
+        main: 
+        
+        lui $t0, 0x1001         #t0 = 0x10010000  (endere�o base do vetor)
+	addi $s2, $zero, 100    #contador = 100
+	add $s1, $zero, $zero   #soma = 0
+	add $s0, $zero, $zero   #i = 0 
+	
+	#for(int c = 100; i != 0; i--)
+	for:
+	beq  $s2, $zero, fim    #if(contador == 0) goto fim
+	
+	sll $t1, $s0, 1         # t1 = 2*i
+	addi $t1, $t1, 1        # t1 = 2*i + 1
+	sw $t1, 0($t0)          # MEM[t0] = t1
+	
+	add $s1, $s1, $t1       #soma = soma + MEM[t0]
+	
+	addi $s2, $s2, -1       #contador--
+	addi $t0, $t0, 0x0004   #t0 = t0 + 4 (proxima posi��o) 
+	addi $s0, $s0, 1        #i = i+1 
+	j for
+	
+	fim:
+	sw $s1, 0($t0)          #MEM[t0] = soma
+        
+       
+	
+
+#Escrever um programa que crie um vetor de 100 
+#elementos na mem�ria onde vetor[i] = 2*i + 1. Ap�s a �ltima 
+#posi��o do vetor criado, escrever a soma de todos os valores 
+#armazenados do vetor. Use o MARS para verificar a quantidade 
+#de instru��es conforme o tipo (ULA, Desvios,Mem ou Outras)#Escrever um programa que crie um vetor de 100 
+#elementos na mem�ria onde vetor[i] = 2*i + 1. Ap�s a �ltima 
+#posi��o do vetor criado, escrever a soma de todos os valores 
+#armazenados do vetor. Use o MARS para verificar a quantidade 
+#de instru��es conforme o tipo (ULA, Desvios,Mem ou Outras)

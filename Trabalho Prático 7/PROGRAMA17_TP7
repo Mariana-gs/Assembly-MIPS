@@ -1,0 +1,32 @@
+# Exercício Prático 7 - Mariana-gs
+# // programa 17 
+
+	#x -> s0, y -> s1, k -> s3, k -> s4
+	
+	.text
+	.globl main
+        main: 
+        
+        lui $t0, 0x1001         #t0 = 0x10010000
+        lw $s0, 0($t0)          #s0 = x
+        lw $s1, 4($t0)          #s1 = y
+        
+        for: 
+        beq $s1, $zero, fim     #if (y == 0) goto fim
+        add $s4, $s4, $s0       #k = k + x
+        addi $s1, $s1, -1       #y--;
+        j for
+        
+        fim:
+        sw $s4, 8($t0)          #MEM[0x10010008] = x*y
+        
+        .data
+        x: .word 8     #0x10010000
+        y: .word 9     #0x10010004
+        k: .word 0     #0x10010008
+        
+        
+        
+        
+        
+        
