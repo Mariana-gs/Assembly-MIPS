@@ -1,0 +1,35 @@
+# Exerc�cio Pr�tico 6 - Mariana-gs
+# // programa 8 
+# Inicialmente escreva um programa que fa�a: 
+# $8 = 0x12345678. 
+# A partir do registrador $8 acima, usando apenas instru��es l�gicas 
+# (or, ori, and, andi, xor, xori) e instru��es de deslocamento 
+# (sll, srl e sra), voc� dever� obter os seguintes valores nos
+# respectivos registradores: 
+# $9 = 0x12 
+# $10 = 0x34 
+# $11 = 0x56
+# $12 = 0x78
+
+.text
+.globl main
+main:
+	addi $8, $0, 0x1234       #t0 = 0x0000 1234
+	sll  $8, $8, 16           #t0 = 0x1234 0000
+	ori  $8, $8, 0x5678       #t0 = 0x1234 5678
+	
+	srl  $9, $8, 24           #t1 = 0x0000 0012
+	
+	srl  $10, $8, 16          #t2 = 0x0000 1234
+	andi $10, $10, 0x00FF     #t2 = 0x0000 0034        
+	
+	andi $11, $8, 0xFF00      #t3 = 0x0000 5600 
+	srl  $11, $11, 8          #t3 = 0x0000 0056
+	
+	andi $12, $8, 0x00FF      #t4 = 0x0000 0078      
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+# Exerc�cio Pr�tico 6 - Mariana-gs
+# // programa 5 {
+# x = 100000;   //0x186A0
+# y = 200000;   //0x30D40
+# z = x + y;
+# }
+
+# x => $s0, y => $s1, z => $s2
+
+.text
+.globl main
+main:
+	addi $t0, $zero, 1      # t0 = 1
+	sll $t0, $t0, 16   
+	ori $s0, $t0, 0x86a0    # x = 1000000
+	
+	addi $t0, $zero, 3      # t0 = 3
+	sll $t0, $t0, 16   
+	ori $s1, $t0, 0x0d40    # x = 2000000
+	
+	add $s2, $s0, $s1       # z = x + y
+	
+	
+	
