@@ -1,2 +1,2 @@
 # Assembly MIPS
- Exercícios de Assembly
+ Exercícios de Assembly - Arquitetura de Computadores
